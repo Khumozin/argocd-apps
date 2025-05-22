@@ -46,6 +46,12 @@ kubectl -n argocd rollout restart deployment argocd-server
 Deploy ArgoCD Apps🚀
 ===
 
+Apply the VaultAuth Resource:
+
+```sh
+kubectl apply -f infrastructure/vault/vault-auth.yaml
+```
+
 You apply this once:
 
 ```sh

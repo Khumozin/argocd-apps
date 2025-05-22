@@ -9,12 +9,3 @@ spec:
       secretName: news-app-ui-certificate-secret
   rules:
     - host: news-app-ui.staging.khumo.cloud
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: news-app-ui
-                port:
-                  number: 80

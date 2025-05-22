@@ -6,7 +6,7 @@ resources:
 
 patchesStrategicMerge:
   - values.yaml
-  - secret.yaml
+  - kv-secret.yaml
 
 namespace: news-app-ui
 namePrefix: dev-

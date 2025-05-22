@@ -6,8 +6,9 @@ resources:
 
 patchesStrategicMerge:
   - values.yaml
-  - ingress-patch.yaml
   - configmap-patch.yaml
+  - ingress-patch.yaml
+  - kv-secret.yaml
 
 namespace: news-app-ui
 namePrefix: staging-
