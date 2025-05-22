@@ -5,8 +5,8 @@ resources:
   - ../../base
 
 patches:
-  - values.yaml
-  - kv-secret.yaml
+  - path: values.yaml
+  - path: kv-secret.yaml
 
 namespace: news-app-ui
 # namePrefix: dev-
