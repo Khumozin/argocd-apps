@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: news-app-ui
-          image: khumo/news-app-ui:v1.0.0
+          image: khumo/news-app:v2.5.5
           ports:
             - containerPort: 80
           env:
@@ -24,3 +24,9 @@ spec:
                 configMapKeyRef:
                   name: news-app-ui-config
                   key: APP_API_URL
+            - name: APP_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: news-app-ui-secret
+                  key: APP_API_KEY
+      resources: {}

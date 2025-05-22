@@ -3,7 +3,6 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
-  - serviceaccount.yaml
   - certificate.yaml
   - configmap.yaml
   - deployment.yaml
