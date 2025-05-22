@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: news-app-ui
+spec:
+  tls:
+    - hosts:
+        - news-app-ui.khumo.cloud
+      secretName: news-app-ui-certificate-secret
+  rules:
+    - host: news-app-ui.khumo.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: news-app-ui
+                port:
+                  number: 80

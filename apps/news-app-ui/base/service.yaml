@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: news-app-ui
+  namespace: news-app-ui
+spec:
+  selector:
+    app: news-app-ui
+  ports:
+    - port: 80
+      targetPort: 80

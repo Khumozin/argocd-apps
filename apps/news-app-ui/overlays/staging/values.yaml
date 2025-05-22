@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: school-management-ui
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: school-management-ui
+          image: khumo/school-management-ui:v1.0.0

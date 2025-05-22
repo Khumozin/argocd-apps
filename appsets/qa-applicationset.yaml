@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: staging-applications
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/khumozin/argocd-apps
+        revision: main
+        directories:
+          - path: apps/*/overlays/staging
+  template:
+    metadata:
+      name: "{{path.basename}}-staging"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/khumozin/argocd-apps
+        targetRevision: main
+        path: "{{path}}"
+        kustomize:
+          namePrefix: staging-
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{path.basename}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
