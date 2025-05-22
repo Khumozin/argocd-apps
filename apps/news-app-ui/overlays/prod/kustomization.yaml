@@ -5,10 +5,10 @@ resources:
   - ../../base
 
 patches:
-  - values.yaml
-  - configmap-patch.yaml
-  - ingress-patch.yaml
-  - kv-secret.yaml
+  - path: values.yaml
+  - path: configmap-patch.yaml
+  - path: ingress-patch.yaml
+  - path: kv-secret.yaml
 
 namespace: news-app-ui
 # namePrefix: prod-
