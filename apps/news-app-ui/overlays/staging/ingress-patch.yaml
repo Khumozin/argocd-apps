@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: news-app-ui
+  namespace: news-app-ui
 spec:
   tls:
     - hosts:
