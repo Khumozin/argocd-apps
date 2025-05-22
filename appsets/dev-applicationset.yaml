@@ -12,7 +12,7 @@ spec:
           - path: apps/*/overlays/dev
   template:
     metadata:
-      name: "{{path.basename}}-dev"
+      name: "{{path.basename}}"
     spec:
       project: default
       source:
