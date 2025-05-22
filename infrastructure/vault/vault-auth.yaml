@@ -4,6 +4,7 @@ metadata:
   name: static-auth
   namespace: vault-secrets-operator-system
 spec:
+  vaultConnectionRef: default
   method: kubernetes
   mount: kubernetes
   kubernetes:
@@ -11,3 +12,4 @@ spec:
     serviceAccount: default
     audiences:
       - vault
+    tokenExpirationSeconds: 600 # 10 minutes
