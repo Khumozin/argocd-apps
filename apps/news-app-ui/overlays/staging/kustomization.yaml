@@ -11,4 +11,4 @@ patchesStrategicMerge:
   - kv-secret.yaml
 
 namespace: news-app-ui
-namePrefix: staging-
+# namePrefix: staging-

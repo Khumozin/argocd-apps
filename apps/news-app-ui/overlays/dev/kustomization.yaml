@@ -9,4 +9,4 @@ patchesStrategicMerge:
   - kv-secret.yaml
 
 namespace: news-app-ui
-namePrefix: dev-
+# namePrefix: dev-
