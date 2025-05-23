@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: news-app-ui
   namespace: news-app-ui
+  argocd.argoproj.io/sync-wave: "1"
 spec:
   selector:
     app: news-app-ui
