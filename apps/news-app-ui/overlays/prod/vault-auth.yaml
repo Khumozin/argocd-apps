@@ -1,0 +1,15 @@
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuth
+metadata:
+  name: static-auth
+  namespace: news-app-ui
+spec:
+  vaultConnectionRef: default
+  method: kubernetes
+  mount: kubernetes
+  kubernetes:
+    role: vso-role
+    serviceAccount: default
+    audiences:
+      - vault
+    tokenExpirationSeconds: 600 # 10 minutes

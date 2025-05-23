@@ -2,7 +2,9 @@ apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
   name: static-auth
-  namespace: vault-secrets-operator-system
+  namespace: news-app-ui
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   vaultConnectionRef: default
   method: kubernetes
