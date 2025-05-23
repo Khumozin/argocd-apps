@@ -3,5 +3,7 @@ kind: ConfigMap
 metadata:
   name: news-app-ui-config
   namespace: news-app-ui
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 data:
   APP_API_URL: "https://newsapi.org/v2/everything"

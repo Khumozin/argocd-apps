@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: news-app-ui
   namespace: news-app-ui
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   replicas: 2
   selector:
