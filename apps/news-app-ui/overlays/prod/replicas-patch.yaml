@@ -1,0 +1,7 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: news-app-ui
+  namespace: news-app-ui
+spec:
+  replicas: 3
