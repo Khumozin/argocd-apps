@@ -4,7 +4,6 @@ metadata:
   name: news-app-ui
   namespace: news-app-ui
 spec:
-  replicas: 2
   template:
     spec:
       containers:

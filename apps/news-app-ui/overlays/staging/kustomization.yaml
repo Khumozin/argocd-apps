@@ -9,6 +9,7 @@ patches:
   - path: values.yaml
   - path: configmap-patch.yaml
   - path: ingress-patch.yaml
+  - path: replicas-patch.yaml
 
 namespace: news-app-ui
 # namePrefix: staging-
