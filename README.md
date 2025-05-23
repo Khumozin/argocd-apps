@@ -12,7 +12,7 @@ To ensure ArgoCD waits for the Certificate to become Ready, apply the following 
 ```sh
 kubectl -n argocd patch configmap argocd-cm \
   --type merge \
-  -p '{"data":{"resource.customizations.health.cert-manager.io_Certificate":"hs = {}\nif obj.status ~= nil and obj.status.conditions ~= nil then\n  for _, condition in ipairs(obj.status.conditions) do\n    if condition.type == \"Ready\" and condition.status == \"True\" then\n      hs.status = \"Healthy\"\n      hs.message = condition.message\n      return hs\n    end\n  end\nend\nhs.status = \"Progressing\"\nhs.message = \"Waiting for certificate to become ready\"\nreturn hs"}}'
+  -p '{"data":{"resource.customizations.health.cert-manager.io_Certificate":"hs = {}\nif obj.status ~= nil and obj.status.conditions ~= nil then\n  for _, condition in ipairs(obj.status.conditions) do\n    if condition.type == \"Ready\" then\n      if condition.status == \"True\" then\n        hs.status = \"Healthy\"\n        hs.message = condition.message\n        return hs\n      else\n        hs.status = \"Degraded\"\n        hs.message = condition.message\n        return hs\n      end\n    end\n  end\nend\nhs.status = \"Progressing\"\nhs.message = \"Waiting for certificate to become ready\"\nreturn hs"}}'
 ```
 
 Or, add `wait` condition in ArgoCD:
@@ -22,13 +22,19 @@ data:
   resource.customizations.health.cert-manager.io_Certificate: |
     hs = {}
     if obj.status ~= nil and obj.status.conditions ~= nil then
-      for _, condition in ipairs(obj.status.conditions) do
-        if condition.type == "Ready" and condition.status == "True" then
-          hs.status = "Healthy"
-          hs.message = condition.message
-          return hs
+        for _, condition in ipairs(obj.status.conditions) do
+            if condition.type == "Ready" then
+                if condition.status == "True" then
+                    hs.status = "Healthy"
+                    hs.message = condition.message
+                    return hs
+                else
+                    hs.status = "Degraded"  # or "Unhealthy"
+                    hs.message = condition.message
+                    return hs
+                end
+            end
         end
-      end
     end
     hs.status = "Progressing"
     hs.message = "Waiting for certificate to become ready"
