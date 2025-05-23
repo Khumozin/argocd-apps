@@ -3,10 +3,10 @@ kind: Kustomization
 
 resources:
   - ../../base
+  - kv-secret.yaml
 
 patches:
   - path: values.yaml
-  - path: kv-secret.yaml
 
 namespace: news-app-ui
 # namePrefix: dev-
