@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: news-app-api
+  namespace: news-app-api
+spec:
+  tls:
+    - hosts:
+        - news-app-api.staging.khumo.cloud
+      secretName: news-app-api-certificate-secret
+  rules:
+    - host: news-app-api.staging.khumo.cloud

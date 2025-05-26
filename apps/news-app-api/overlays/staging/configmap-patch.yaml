@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: news-app-api-config
+  namespace: news-app-api
+data:
+  NEWS_API_URL: "https://newsapi.org/v2/everything"

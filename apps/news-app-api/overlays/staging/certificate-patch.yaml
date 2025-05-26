@@ -1,0 +1,8 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: news-app-api-ingressroute-certificate
+  namespace: news-app-api
+spec:
+  dnsNames:
+    - news-app-api.staging.khumo.cloud
