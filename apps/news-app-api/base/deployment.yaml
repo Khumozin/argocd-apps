@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: news-app-api
+  namespace: news-app-api
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: news-app-api
+  template:
+    metadata:
+      labels:
+        app: news-app-api
+    spec:
+      containers:
+        - name: news-app-api
+          image: khumo/news-api:v1.0.4
+          ports:
+            - containerPort: 80
+          env:
+            - name: NEWS_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: news-app-api-config
+                  key: NEWS_API_URL
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: news-app-api-config
+                  key: PORT
+            - name: NEWS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: news-app-api-secret
+                  key: APP_API_KEY
+      resources: {}
