@@ -13,17 +13,23 @@ spec:
   template:
     metadata:
       name: >-
-        {{ (index (splitList "/" path.directory) 1 | lower | replace "_" "-" | regexReplaceAll "[^a-z0-9-.]" "-" | regexReplaceAll "-+" "-" | trimSuffix "-" | trimPrefix "-") }}
+        {{- $parts := splitList "/" .path.directory -}}
+        {{- $appName := index $parts 1 -}}
+        {{- $clean := $appName | lower | replace "_" "-" | regexReplaceAll "[^a-z0-9-]" "-" | regexReplaceAll "-+" "-" | trimSuffix "-" | trimPrefix "-" -}}
+        {{- printf "%s-dev" $clean -}}
     spec:
       project: default
       source:
         repoURL: https://github.com/khumozin/argocd-apps
         targetRevision: main
-        path: "{{path}}"
+        path: "{{ .path }}"
       destination:
         server: https://kubernetes.default.svc
         namespace: >-
-          {{ (index (splitList "/" path.directory) 1 | lower | replace "_" "-" | regexReplaceAll "[^a-z0-9-.]" "-" | regexReplaceAll "-+" "-" | trimSuffix "-" | trimPrefix "-") }}
+          {{- $parts := splitList "/" .path.directory -}}
+          {{- $appName := index $parts 1 -}}
+          {{- $clean := $appName | lower | replace "_" "-" | regexReplaceAll "[^a-z0-9-]" "-" | regexReplaceAll "-+" "-" | trimSuffix "-" | trimPrefix "-" -}}
+          {{- $clean -}}
       syncPolicy:
         automated:
           prune: true
