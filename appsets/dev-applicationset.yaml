@@ -12,7 +12,7 @@ spec:
           - path: apps/*/overlays/dev
   template:
     metadata:
-      name: "{{path.basename}}"
+      name: "{{path.dirname | base}}-dev"
     spec:
       project: default
       source:
@@ -23,7 +23,7 @@ spec:
         #   namePrefix: dev-
       destination:
         server: https://kubernetes.default.svc
-        namespace: "{{path.basename}}"
+        namespace: "{{path.dirname | base}}"
       syncPolicy:
         automated:
           prune: true
