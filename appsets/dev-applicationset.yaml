@@ -12,18 +12,18 @@ spec:
           - path: apps/*/overlays/dev
   template:
     metadata:
-      name: "{{path.directory}}"
+      name: >-
+        {{ (index (splitList "/" path.directory) 1 | lower | replace "_" "-" | regexReplaceAll "[^a-z0-9-.]" "-" | regexReplaceAll "-+" "-" | trimSuffix "-" | trimPrefix "-") }}
     spec:
       project: default
       source:
         repoURL: https://github.com/khumozin/argocd-apps
         targetRevision: main
         path: "{{path}}"
-        # kustomize:
-        #   namePrefix: dev-
       destination:
         server: https://kubernetes.default.svc
-        namespace: "{{path.directory}}"
+        namespace: >-
+          {{ (index (splitList "/" path.directory) 1 | lower | replace "_" "-" | regexReplaceAll "[^a-z0-9-.]" "-" | regexReplaceAll "-+" "-" | trimSuffix "-" | trimPrefix "-") }}
       syncPolicy:
         automated:
           prune: true
