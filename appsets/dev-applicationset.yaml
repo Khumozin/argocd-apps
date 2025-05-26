@@ -24,7 +24,7 @@ spec:
       source:
         repoURL: https://github.com/khumozin/argocd-apps
         targetRevision: main
-        path: "{{path}}"
+        path: apps/{{name}}/overlays/dev
         # kustomize:
         #   namePrefix: dev-
       destination:
