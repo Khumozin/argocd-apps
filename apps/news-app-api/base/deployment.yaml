@@ -26,11 +26,6 @@ spec:
                 configMapKeyRef:
                   name: news-app-api-config
                   key: NEWS_API_URL
-            - name: PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: news-app-api-config
-                  key: PORT
             - name: NEWS_API_KEY
               valueFrom:
                 secretKeyRef:

@@ -7,4 +7,3 @@ metadata:
     argocd.argoproj.io/sync-wave: "0"
 data:
   NEWS_API_URL: "https://newsapi.org/v2/everything"
-  PORT: 3000
