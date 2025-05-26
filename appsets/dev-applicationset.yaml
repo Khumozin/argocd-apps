@@ -10,26 +10,26 @@ spec:
         revision: main
         directories:
           - path: apps/*/overlays/dev
+    - list:
+        elements:
+          - name: news-app-ui
+            namespace: news-app-ui
+          - name: news-app-api
+            namespace: news-app-api
   template:
     metadata:
-      name: >-
-        {{- $parts := splitList "/" .path.directory -}}
-        {{- $appName := index $parts 1 -}}
-        {{- $clean := $appName | lower | replace "_" "-" | regexReplaceAll "[^a-z0-9-]" "-" | regexReplaceAll "-+" "-" | trimSuffix "-" | trimPrefix "-" -}}
-        {{- printf "%s-dev" $clean -}}
+      name: "{{name}}"
     spec:
       project: default
       source:
         repoURL: https://github.com/khumozin/argocd-apps
         targetRevision: main
-        path: "{{ .path }}"
+        path: "{{path}}"
+        # kustomize:
+        #   namePrefix: dev-
       destination:
         server: https://kubernetes.default.svc
-        namespace: >-
-          {{- $parts := splitList "/" .path.directory -}}
-          {{- $appName := index $parts 1 -}}
-          {{- $clean := $appName | lower | replace "_" "-" | regexReplaceAll "[^a-z0-9-]" "-" | regexReplaceAll "-+" "-" | trimSuffix "-" | trimPrefix "-" -}}
-          {{- $clean -}}
+        namespace: "{{namespace}}"
       syncPolicy:
         automated:
           prune: true
