@@ -10,5 +10,5 @@ patches:
   - path: values.yaml
   - path: replicas-patch.yaml
 
-namespace: news-app-ui
+namespace: news-app-api
 # namePrefix: dev-
