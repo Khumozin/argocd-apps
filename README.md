@@ -65,8 +65,8 @@ kubectl apply -f root-app.yaml
 ```
 
 After that, ArgoCD:
-* Reads the `appsets/` folder
+* Reads the `apps/` folder
 
-* Applies each `ApplicationSet` to generate apps for each environment
+* Generate apps for each environment
 
 * Recursively manages your full environment
