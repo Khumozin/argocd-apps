@@ -12,5 +12,5 @@ patches:
   - path: ingress-patch.yaml
   - path: replicas-patch.yaml
 
-namespace: news-app-ui
+namespace: news-app-api
 # namePrefix: staging-

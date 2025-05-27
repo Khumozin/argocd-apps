@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: multi-cluster-apps
+  namespace: argocd
 spec:
   generators:
     - git:
@@ -9,9 +10,6 @@ spec:
         revision: HEAD
         directories:
           - path: "apps/*/overlays/*"
-            values:
-              appName: '{{path.components[1]}}'  # Extracts app name (e.g., "app1")
-              env: '{{path.components[3]}}'      # Extracts overlay/env (e.g., "dev")
     - list:
         elements:
           - env: dev
@@ -20,22 +18,18 @@ spec:
           #   cluster: https://staging-cluster.example.com
           # - env: prod
           #   cluster: https://prod-cluster.example.com
-  strategy:
-    merge:  # Uses "merge" instead of "matrix" to pair Git directories with matching List entries
-      mergeKeys:
-        - env  # Merges entries where `env` from Git matches `env` from List
   template:
     metadata:
-      name: '{{appName}}-{{env}}'  # Uses app name + env (e.g., "app1-dev")
+      name: '{{path.components[1]}}-{{env}}'  # Uses app name + env (e.g., "app1-dev")
     spec:
       project: default
       source:
         repoURL: https://github.com/khumozin/argocd-apps.git  # Matches Git generator repoURL
         targetRevision: HEAD
-        path: 'apps/{{appName}}/overlays/{{env}}'  # Path built from Git directory values
+        path: 'apps/{{path.components[1]}}/overlays/{{env}}'  # Path built from Git directory values
       destination:
         server: '{{cluster}}'  # Uses cluster URL from List generator
-        namespace: '{{appName}}'  # Namespace = app name (adjust if needed)
+        namespace: '{{path.components[1]}}'  # Namespace = app name (adjust if needed)
       syncPolicy:
         automated:
           prune: true
